@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* html {
+            --s: 50px;
+            --c1: #b06969;
+            --c2: #7893ce;
+            --c3: #c18a8a;
+            
+            background:
+                repeating-conic-gradient(from 30deg,#0000 0 120deg,var(--c3) 0 50%) 
+                calc(var(--s)/2) calc(var(--s)*tan(30deg)/2),
+                repeating-conic-gradient(from 30deg,var(--c1) 0 60deg,var(--c2) 0 120deg,var(--c3) 0 50%);
+            background-size: var(--s) calc(var(--s)*tan(30deg));
+        } */
+
+        html {
+            background-color: #e5e5f7;
+            /* opacity: 0.8; */
+
+            --blue: blue;
+
+            /* background-image: 
+                linear-gradient(0, 
+                    rgb(255, 0, 0, 1) 0, 
+                    rgba(11, 0, 128, 0.5) 90%, 
+                    yellow 100%); */
+
+            /* background-color: var(--blue); */
+            /* background-image: linear-gradient(red, var(--blue)); */
+            background-image: radial-gradient(rgb(25, 45, 196), rgb(7, 10, 23));
+
+            animation: bg 3s infinite alternate;
+            background-size: 100vw 100vh;
+
+            /* background-image: linear-gradient(#444cf7 2px, transparent 2px), linear-gradient(90deg, #444cf7 2px, transparent 2px), linear-gradient(#444cf7 1px, transparent 1px), linear-gradient(90deg, #444cf7 1px, #e5e5f7 1px);
+            background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+            background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px; */
+            
+
+            /* transition: background 1s; */
+        }
+
+        /* html:hover {
+            --blue:green;
+        } */
+
+        @keyframes bg {
+            from {
+                /* background-image: linear-gradient(red, blue); */
+
+            }
+            to {
+                /* background-image: linear-gradient(black, yellow); */
+            }
+        }
+
+        body {
+            margin: 0;
+            color: white;
+            font-size: 24px;
+        }
+
+        section {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* section:nth-child(2) {
+            background-color: white;
+        } */
+
+        .container {
+            padding: 20px;
+            /* background-color: rgba(0, 0, 0, 0.55); */
+        }
+
+        
+        .background {
+            position: fixed;
+            top: -100vh;
+            bottom: -100vh;
+            left: -100vw;
+            right: -100vw;
+
+            --s: 100px; /* control the size*/
+            --c1: #cc2a41;
+            --c2: #351330;
+            
+            --_g: #0000 24%,
+                var(--c2) 26% 34%,var(--c1) 36% 44%,
+                var(--c2) 46% 54%,var(--c1) 56% 64%,
+                var(--c2) 66% 74%,#0000 76%;
+            background:
+                radial-gradient(100% 100% at 100% 0,var(--_g)),
+                radial-gradient(100% 100% at 0 100%,var(--_g)),
+                radial-gradient(var(--c2) 14%,var(--c1) 16%) 
+                calc(var(--s)/2) calc(var(--s)/2);
+            background-size: var(--s) var(--s);
+
+            animation: bg_rotate 30s linear infinite alternate;
+            z-index: -99;
+        }
+
+        @keyframes bg_rotate {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(100px, 100px);
+            }
+        }
+
+        .svg {
+            position: absolute;
+            z-index: -10;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <section>
+        <div class="background"></div>
+
+        <div class="container">
+            <h1>Hello</h1>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint perspiciatis reiciendis sunt iure odio quam aliquam commodi? Obcaecati nostrum at error ipsum reiciendis, consequatur voluptate esse enim velit, eum magnam.</p>
+        </div>
+    </section>
+    <section>
+
+        <svg class="svg" width="100%" height="100vh" viewbox="0 0 100vw 100vh">
+            <defs>
+                <pattern id="circle" width="100" height="100" patternUnits="userSpaceOnUse">
+                    <circle r="50" cx="50" cy="50" fill="darkred">
+                        <!-- <animate 
+                            attributeName="fill"
+                            from="darkred"
+                            to="lightblue" 
+                            dur="3s"
+                            repeatCount="indefinite"/> -->
+                        <animate 
+                            attributeName="fill"
+                            keyTimes="0; 0.5; 1"
+                            values="#3006; #0086; #3006"
+                            keySplines=".42 0 .58 1; .42 0 .58 1"
+                            calcMode="spline"
+                            dur="5s"
+                            repeatCount="indefinite"/>
+                        <animate 
+                            attributeName="r"
+                            keyTimes="0; 0.1; 0.4; 0.6; 0.9; 1"
+                            values="72; 72; 5; 5; 72; 72"
+                            keySplines=".42 0 .58 1; .42 0 .58 1;  .42 0 .58 1; .42 0 .58 1; .42 0 .58 1"
+                            calcMode="spline"
+                            dur="5s"
+                            repeatCount="indefinite"/>
+                    </circle>
+                </pattern>
+
+                <pattern id="circle2" width="50" height="50" patternUnits="userSpaceOnUse">
+                    <circle r="40" cx="25" cy="25" fill="darkred">
+                        <animate 
+                            attributeName="fill"
+                            keyTimes="0; 0.5; 1"
+                            values="#0038; #0808; #0038"
+                            keySplines=".42 0 .58 1; .42 0 .58 1"
+                            calcMode="spline"
+                            dur="8s"
+                            repeatCount="indefinite"/>
+                        <animate 
+                            attributeName="r"
+                            keyTimes="0; 0.1; 0.4; 0.6; 0.9; 1"
+                            values="40; 40; 2; 2; 40; 40"
+                            keySplines=".42 0 .58 1; .42 0 .58 1;  .42 0 .58 1; .42 0 .58 1; .42 0 .58 1"
+                            calcMode="spline"
+                            dur="8s"
+                            begin="3s"
+                            repeatCount="indefinite"/>
+                    </circle>
+                </pattern>
+            </defs>
+            
+            <rect width="100vw" height="100vh" fill="black"/>
+            <rect width="100vw" height="100vh" fill="url(#circle2)"/>
+            <rect width="100vw" height="100vh" fill="url(#circle)"/>
+            
+
+        </svg>
+
+        <div class="container">
+            <!-- <h1>Hello</h1> -->
+        </div>
+    </section>
+</body>
+</html>
