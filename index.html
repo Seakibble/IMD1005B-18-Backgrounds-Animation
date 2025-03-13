@@ -3,62 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Week 9 - Backgrounds and Animations</title>
 
     <style>
-        /* html {
-            --s: 50px;
-            --c1: #b06969;
-            --c2: #7893ce;
-            --c3: #c18a8a;
-            
-            background:
-                repeating-conic-gradient(from 30deg,#0000 0 120deg,var(--c3) 0 50%) 
-                calc(var(--s)/2) calc(var(--s)*tan(30deg)/2),
-                repeating-conic-gradient(from 30deg,var(--c1) 0 60deg,var(--c2) 0 120deg,var(--c3) 0 50%);
-            background-size: var(--s) calc(var(--s)*tan(30deg));
-        } */
 
-        html {
-            background-color: #e5e5f7;
-            /* opacity: 0.8; */
-
-            --blue: blue;
-
-            /* background-image: 
-                linear-gradient(0, 
-                    rgb(255, 0, 0, 1) 0, 
-                    rgba(11, 0, 128, 0.5) 90%, 
-                    yellow 100%); */
-
-            /* background-color: var(--blue); */
-            /* background-image: linear-gradient(red, var(--blue)); */
-            background-image: radial-gradient(rgb(25, 45, 196), rgb(7, 10, 23));
-
-            animation: bg 3s infinite alternate;
-            background-size: 100vw 100vh;
-
-            /* background-image: linear-gradient(#444cf7 2px, transparent 2px), linear-gradient(90deg, #444cf7 2px, transparent 2px), linear-gradient(#444cf7 1px, transparent 1px), linear-gradient(90deg, #444cf7 1px, #e5e5f7 1px);
-            background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
-            background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px; */
-            
-
-            /* transition: background 1s; */
-        }
-
-        /* html:hover {
-            --blue:green;
-        } */
-
-        @keyframes bg {
-            from {
-                /* background-image: linear-gradient(red, blue); */
-
-            }
-            to {
-                /* background-image: linear-gradient(black, yellow); */
-            }
-        }
+        /* There are a number of sites that offer free CSS-based backgrounds to add to your site to make them more interesting. If you do use them in your projects (academic, personal, or professiona;), be sure to attribute the authors! They worked hard on them so you can use them for free! */
+        /* 
+            https://css-pattern.com/
+            https://www.magicpattern.design/tools/css-backgrounds
+        */
 
         body {
             margin: 0;
@@ -68,46 +21,74 @@
 
         section {
             position: relative;
+            /* Setting the min height to the height of the viewport so that it actually displays the backround. This is only necessary because we don't have any content to prop it open. */
             min-height: 100vh;
         }
 
-        /* section:nth-child(2) {
-            background-color: white;
-        } */
+        section:first-child {
+            /* We can set up gradients as our background using background-image and a gradient function.  */
+            /* There are a few of them, but here are two easy ones to start with. */
+            
+            /* linear-gradient takes at least two colours. It can also take an angle */
+            /* background-image: linear-gradient(red, blue); */
+            /* background-image: linear-gradient(45deg, red, blue); */
+
+            /* We can also specify multiple colour stops - this lets us define a more complicated ramp with several colours. After the optional angle, we provide pairs of colour/stop values. stop values can be percentages or other distance values. You can have as many of these as you like. */
+            /* background-image: 
+                linear-gradient(0, 
+                    rgb(255, 0, 0, 1) 0, 
+                    rgba(11, 0, 128, 0.5) 90%, 
+                    yellow 100%); */
+
+
+            /* We can also use radial gradients, which start at the center of the page and work outwards. These are great for adding a sense of depth to our page with very little effort. */
+            background-image: radial-gradient(rgb(25, 45, 196), rgb(7, 10, 23));
+
+            /* I'm setting the background size here to ensure the gradient fills the whole page. */
+            background-size: 100vw 100vh;
+        }
 
         .container {
             padding: 20px;
-            /* background-color: rgba(0, 0, 0, 0.55); */
         }
 
         
+        /* If we want to animate a CSS-based background, our options are limited. Gradients and background image can't be animated or tranitioned. So we're kinda stuck using transform on the container. This can still have good effects though! */
         .background {
+            /* I'm setting this to fixed so that it won't overflow out the page and add horizontal scrolling. It also has the side effect of creating a parallax effect - the background won't appear to move, even if the content does. */
             position: fixed;
+
+            /* We need to add some extra space on the sides so that when we rotate it, the background won't run out of room. */
             top: -100vh;
             bottom: -100vh;
             left: -100vw;
             right: -100vw;
 
+            /* We can slap an animation on this container to rotate the whole thing */
+            animation: bg_scroll 30s linear infinite alternate;
+
+            /* Because it's position fixed, it will naturally sit on top of other stuff on the page. Because it's a background element we should give it a negative z-index to push it backwards. */
+            z-index: -99;
+
+            /* The code that follows was taken from css-patterns.com. They pull some CSS wizardry using gradients and custom properties to make complex and cool patterns. */
             --s: 100px; /* control the size*/
-            --c1: #cc2a41;
-            --c2: #351330;
+            --c1: #cc2a41; /* First colour */
+            --c2: #351330; /* First colour */
             
             --_g: #0000 24%,
                 var(--c2) 26% 34%,var(--c1) 36% 44%,
                 var(--c2) 46% 54%,var(--c1) 56% 64%,
-                var(--c2) 66% 74%,#0000 76%;
+                var(--c2) 66% 74%,#0000 76%; /* This is the guts of a gradint - various colours and stops */
             background:
                 radial-gradient(100% 100% at 100% 0,var(--_g)),
                 radial-gradient(100% 100% at 0 100%,var(--_g)),
                 radial-gradient(var(--c2) 14%,var(--c1) 16%) 
-                calc(var(--s)/2) calc(var(--s)/2);
-            background-size: var(--s) var(--s);
-
-            animation: bg_rotate 30s linear infinite alternate;
-            z-index: -99;
+                calc(var(--s)/2) calc(var(--s)/2); /* The actual value set here relies on multiple gradients. This is really complex stuff, so don't worry if this isn't clear. The maker of this code really knows what they're doing and they're pushing CSS to its limits to achieve this effect. */
+            background-size: var(--s) var(--s); /* Lastly, the size is set through the above custom property.*/
         }
 
-        @keyframes bg_rotate {
+        /* This animation just translates diagonally. Because the animation was set to linear and the distance corresponds to the size of the background pattern, it will appear to continue on forever. */
+        @keyframes bg_scroll {
             from {
                 transform: translate(0, 0);
             }
@@ -116,8 +97,11 @@
             }
         }
 
+        /* Position absolute is to make sure content sits over it. This only works because we've also set position relative on section. */
         .svg {
             position: absolute;
+            top: 0;
+            bottom: 0;
             z-index: -10;
         }
 
@@ -125,33 +109,54 @@
     </style>
 </head>
 <body>
+    <!-- Empty section to demonstrate gradients -->
     <section>
+
+    </section>
+
+    <!-- Empty section to demonstrate gradients -->
+    <section>
+        <!-- background div holds the scrolling pattern. -->
         <div class="background"></div>
 
         <div class="container">
-            <h1>Hello</h1>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint perspiciatis reiciendis sunt iure odio quam aliquam commodi? Obcaecati nostrum at error ipsum reiciendis, consequatur voluptate esse enim velit, eum magnam.</p>
+            <!-- If we have content, it can go here. this class will apply padding to it, since we can't have any on the body. -->
         </div>
     </section>
-    <section>
 
+
+    <!-- The real magic is in the svg background. -->
+    <section>
+        <div class="container">
+            <h1>This is an SVG background.</h1>
+        </div>
+
+        <!-- The svg needs a width of 100% and not 100vw because 10vw will include the vertical scrollbar. This will result in some extra horizontal width that will create a horizontal scrollbar. 100% will not include the scrollbar. -->
+         <!-- The viewbox will just be set to teh dimensions of the viewport. This will be automatically responsive. -->
         <svg class="svg" width="100%" height="100vh" viewbox="0 0 100vw 100vh">
             <defs>
+                <!-- In our defs, we can have a few patterns. The width and height will be the dimensions of the 'tiles'. patternUnits configures the pattern to use the coordinate system of the svg. Of course, it also has a unique id so that we can reference it. -->
                 <pattern id="circle" width="100" height="100" patternUnits="userSpaceOnUse">
+                    <!-- Our pattern is very simple: just a circle. It has some basic initial values, but we'll override the radius and the fill in a moment -->
                     <circle r="50" cx="50" cy="50" fill="darkred">
+                        <!-- In SVG land, if we want to animate something, we put <animate> tags inside it. These require us to name the parent (circle in this case) attribute we want to change. From there, we provide an initial from value and a to value, a duration, and a repeat count. Note that the value for repeat count to be infinite is 'indefinite' unlike in CSS. -->
                         <!-- <animate 
                             attributeName="fill"
                             from="darkred"
                             to="lightblue" 
                             dur="3s"
                             repeatCount="indefinite"/> -->
+
+                        <!-- To do more advanced animations with multiple keyframes, we provide a list of keyTimes and values. The keyTimes are the points in the animation where the keyframes are located. The values are the value of the animated attribute at those times. Note that tehse values are semicolon separated. -->
+                         <!-- We may want to add timing functions for these keyframes. To do so, we must set calcMode="spline". Then we provide a list of bezier curve control points, again semi-colon separated. The points themselves are separated by spaces. These points control the timing of one keyframe to the next, so we need to provide as many splines as keyTimes, minus one. Be careful with the syntax here, one typo and it just stops working. -->
+                          <!-- If we want to get these curves easily, we can use https://cubic-bezier.com/ -->
                         <animate 
                             attributeName="fill"
                             keyTimes="0; 0.5; 1"
                             values="#3006; #0086; #3006"
                             keySplines=".42 0 .58 1; .42 0 .58 1"
                             calcMode="spline"
-                            dur="5s"
+                            dur="10s"
                             repeatCount="indefinite"/>
                         <animate 
                             attributeName="r"
@@ -159,11 +164,12 @@
                             values="72; 72; 5; 5; 72; 72"
                             keySplines=".42 0 .58 1; .42 0 .58 1;  .42 0 .58 1; .42 0 .58 1; .42 0 .58 1"
                             calcMode="spline"
-                            dur="5s"
+                            dur="15s"
                             repeatCount="indefinite"/>
                     </circle>
                 </pattern>
 
+                <!-- Another pattern, with some different parameters. The discrepencies in radius, position, duration and delay (begin) create a much more complex image. Especially here were the colours are partially transparent.  -->
                 <pattern id="circle2" width="50" height="50" patternUnits="userSpaceOnUse">
                     <circle r="40" cx="25" cy="25" fill="darkred">
                         <animate 
@@ -172,7 +178,7 @@
                             values="#0038; #0808; #0038"
                             keySplines=".42 0 .58 1; .42 0 .58 1"
                             calcMode="spline"
-                            dur="8s"
+                            dur="19s"
                             repeatCount="indefinite"/>
                         <animate 
                             attributeName="r"
@@ -180,23 +186,18 @@
                             values="40; 40; 2; 2; 40; 40"
                             keySplines=".42 0 .58 1; .42 0 .58 1;  .42 0 .58 1; .42 0 .58 1; .42 0 .58 1"
                             calcMode="spline"
-                            dur="8s"
+                            dur="16s"
                             begin="3s"
                             repeatCount="indefinite"/>
                     </circle>
                 </pattern>
             </defs>
             
+            <!-- Finally, we just need to display these patterns. We're using a black background, then showing each pattern, setting the fill of the rectangles to display the patterns. -->
             <rect width="100vw" height="100vh" fill="black"/>
             <rect width="100vw" height="100vh" fill="url(#circle2)"/>
             <rect width="100vw" height="100vh" fill="url(#circle)"/>
-            
-
         </svg>
-
-        <div class="container">
-            <!-- <h1>Hello</h1> -->
-        </div>
     </section>
 </body>
 </html>
